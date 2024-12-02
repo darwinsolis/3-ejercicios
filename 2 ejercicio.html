@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task.completed {
+            text-decoration: line-through;
+            background-color: #e0e0e0;
+        }
+        .button {
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-left: 10px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+        .button.complete {
+            background-color: #32cd32;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Tareas</h1>
+
+    <div>
+        <input type="text" id="taskInput" placeholder="Escribe una tarea...">
+        <button onclick="addTask()">Agregar tarea</button>
+    </div>
+
+    <ul id="taskList" class="task-list"></ul>
+
+    <script>
+        
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value.trim();
+
+            if (taskText !== "") {
+                const taskList = document.getElementById("taskList");
+
+            
+                const newTask = document.createElement("li");
+                newTask.classList.add("task");
+
+
+                const taskSpan = document.createElement("span");
+                taskSpan.textContent = taskText;
+
+                const completeButton = document.createElement("button");
+                completeButton.textContent = "Completar";
+                completeButton.classList.add("button", "complete");
+                completeButton.onclick = function () {
+                    newTask.classList.toggle("completed");
+                };
+
+          
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Eliminar";
+                deleteButton.classList.add("button");
+                deleteButton.onclick = function () {
+                    taskList.removeChild(newTask);
+                };
+
+                newTask.appendChild(taskSpan);
+                newTask.appendChild(completeButton);
+                newTask.appendChild(deleteButton);
+
+                taskList.appendChild(newTask);
+
+                taskInput.value = "";
+            } else {
+                alert("Por favor, escribe una tarea.");
+            }
+        }
+    </script>
+
+</body>
+</html>
